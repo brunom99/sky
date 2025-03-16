@@ -27,9 +27,9 @@ func (p *Position) ToString() string {
 }
 
 // Move function to update the position towards the target position by a certain distance
-func (p *Position) Move(target Position, meter float64) {
+func (p *Position) Move(target Position, meter float64) bool {
 	if p == nil {
-		return
+		return false
 	}
 
 	// Calculate the distance between the current position and the target
@@ -38,11 +38,9 @@ func (p *Position) Move(target Position, meter float64) {
 	// Calculate the azimuth (direction) towards the target
 	azimuth := gps.CalculateAzimuth(p.Latitude, p.Longitude, target.Latitude, target.Longitude)
 
-	// If the specified meter distance is greater than the distance to the target,
-	// we just move directly to the target
+	// If the specified meter distance is greater than the distance to the target, impossible
 	if meter >= distance {
-		p.Latitude = target.Latitude
-		p.Longitude = target.Longitude
+		return false
 	} else {
 		// Move the current position towards the target by the specified distance
 		newLatitude, newLongitude := gps.MoveTowards(p.Latitude, p.Longitude, azimuth, meter)
@@ -51,6 +49,7 @@ func (p *Position) Move(target Position, meter float64) {
 		p.Latitude = newLatitude
 		p.Longitude = newLongitude
 	}
+	return true
 }
 
 func RandPosition(r ...*rand.Rand) Position {

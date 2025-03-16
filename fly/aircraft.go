@@ -89,5 +89,8 @@ func (a *Aircraft) move() {
 	// save old position
 	a.PositionPrev = a.Position
 	// move
-	a.Position.Move(a.targetPos, a.distance)
+	if !a.Position.Move(a.targetPos, a.distance) {
+		// target became current position
+		a.targetPos = a.Position
+	}
 }

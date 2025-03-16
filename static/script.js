@@ -127,12 +127,6 @@ function onMessage(msg) {
         if (pos.longitude !== aircraftInfo.aircraft.pos.longitude || pos.latitude !== aircraftInfo.aircraft.pos.latitude) {
             // move aircraft
             aircraftInfo.marker.setLatLng(L.latLng(pos.latitude, pos.longitude));
-            const diffLong =  Math.abs( aircraftInfo.aircraft.pos.longitude-pos.longitude);
-            const diffLat =  Math.abs( aircraftInfo.aircraft.pos.latitude-pos.latitude);
-            if(diffLat > 5 || diffLong > 5) {
-                console.log('diff long', diffLong)
-                console.log('diff lat', diffLat)
-            }
             // line
             const line = L.polyline([[aircraftInfo.aircraft.pos.latitude, aircraftInfo.aircraft.pos.longitude], [pos.latitude, pos.longitude]], {color: aircraftInfo.color});
             line.addTo(map);
