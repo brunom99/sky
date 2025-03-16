@@ -1,0 +1,10 @@
+[server]
+port = 1984
+
+[aircraft]
+seed = 0
+count = 100                 # probability for each cell to have a aircraft
+minResponse = 100          # milliseconds
+maxResponse = 500          # milliseconds
+minDistance = 10000          # meters
+maxDistance = 100000         # meters
